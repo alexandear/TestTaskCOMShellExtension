@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+	
+	<title></title>
+	<meta name="GENERATOR" content="OpenOffice.org 3.3  (FreeBSD/amd64)">
+	<meta name="CREATED" content="0;0">
+	<meta name="CHANGED" content="0;0">
+	<style type="text/css">
+	<!--
+		@page { margin: 1in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; font-family: "Arial", sans-serif; font-size: 11pt; font-style: normal; font-weight: normal; line-height: 115%; text-align: left; text-decoration: none }
+		A:link { so-language: zxx }
+	-->
+	</style>
+<style type="text/css"></style></head>
+<body lang="en-US" text="#000000" dir="LTR" style="border: none; padding: 0in">
+<p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Solution
+for this task should be a COM component that is ready for 64-bit. Use
+MS Visual Studio 2008/2010/2012 (it can be Express Edition).</span></font></font></p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Main
+task:</span></font></font></p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-left: 0.42in; margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Write
+COM component, that can be registered in MS Windows 7/8 64-bit. It
+should extend system shell to provide:</span></font></font></p>
+<ol>
+	<li><p style="margin-bottom: 0in"><font size="2">It should add menu
+	item (example, "Calculate the Sum") in Windows Explorer?s
+	context menu (right click on the list of files, folders should be
+	ignored).</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">This menu item should
+	write information about selected files into the log file.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">Component should work
+	on huge amout of selected files.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">If your
+	implementation is not based on ATL you will have a good chance to
+	get this job.</font></p>
+</li></ol>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Advanced
+task:</span></font></font></p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-left: 0.42in; margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">You
+can increase your chance to get this job if you solve these issues:</span></font></font></p>
+<ol>
+	<li><p style="margin-bottom: 0in"><font size="2">Each line in the log
+	file should represents: short filename, size in human readable form,
+	data of creation in human readable form.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">Component should only
+	append lines into the log file.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">Lines should be
+	sorted by file names in alphabetical order.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">In additional, it
+	needs to calculate a per-byte sum (a flavour of checksum) in 4 bytes
+	variable (DWORD) for each file.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">The calculation of
+	checksum should be done using concurrency.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">Using thread pool is
+	a desirable solution.</font></p>
+	</li><li><p style="margin-bottom: 0in"><font size="2">Calculated
+	information for each file should be logged as soon as possible,
+	instead of at the end of processing of all files (sort order should
+	be preserved).</font></p>
+</li></ol>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Additional
+requirements:</span></font></font></p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<ol>
+	<li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Source
+	control systems (subversion, mercurial, git, etc.) are very useful
+	for collaboration work. Use one of it to promote your solution
+	(</span></font></font><font color="#1155cc"><font size="2"><u><span style="background: #ffffff"><a href="http://code.google.com/">http</a><a href="http://code.google.com/">://</a><a href="http://code.google.com/">code</a><a href="http://code.google.com/">.</a><a href="http://code.google.com/">google</a><a href="http://code.google.com/">.</a><a href="http://code.google.com/">com</a></span></u></font></font><font color="#222222"><font size="2"><span style="background: #ffffff">,
+	</span></font></font><font color="#1155cc"><font size="2"><u><span style="background: #ffffff"><a href="https://github.com/">https</a><a href="https://github.com/">://</a><a href="https://github.com/">github</a><a href="https://github.com/">.</a><a href="https://github.com/">com</a></span></u></font></font><font color="#222222"><font size="2"><span style="background: #ffffff">,
+	etc.).</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">C-style
+	code is not welcome.</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Use
+	STL as much as possible.</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Use
+	C++11 or Boost for concurrency.</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Implement
+	your solution in cross-platform manner to be ready for use the
+	business logic in Linux or Mac OS X application.</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Cover
+	your solution by unit tests (example, </span></font></font><font color="#1155cc"><font size="2"><u><span style="background: #ffffff"><a href="http://code.google.com/p/googletest/">Google</a><a href="http://code.google.com/p/googletest/">
+	</a><a href="http://code.google.com/p/googletest/">Test</a></span></u></font></font><font color="#222222"><font size="2"><span style="background: #ffffff">).</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Test
+	the business logic, not the COM specific code.</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">Get
+	ready to describe all functions that you will use to implement the
+	solution.</span></font></font></p>
+</li></ol>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-bottom: 0in"><font size="2">Hint:</font></p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<ol>
+	<li><p style="margin-bottom: 0in"><font color="#222222"><font size="2"><span style="background: #ffffff">To
+	solve the main task you have to implement </span></font></font><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb775096.aspx"><font color="#1155cc"><font size="2"><u><span style="background: #ffffff">IShellExtInit</span></u></font></font></a><font color="#222222"><font size="2"><span style="background: #ffffff">
+	and </span></font></font><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb776095.aspx"><font color="#1155cc"><font size="2"><u><span style="background: #ffffff">IContextMenu</span></u></font></font></a><font color="#222222"><font size="2"><span style="background: #ffffff">.</span></font></font></p>
+	</li><li><p style="margin-bottom: 0in"><font color="#1155cc"><font size="2"><u><span style="background: #ffffff"><a href="http://books.google.com.ua/books/about/Essential_Com.html?id=kfRWvKSePmAC&redir_esc=y">Essential</a><a href="http://books.google.com.ua/books/about/Essential_Com.html?id=kfRWvKSePmAC&redir_esc=y">
+	</a><a href="http://books.google.com.ua/books/about/Essential_Com.html?id=kfRWvKSePmAC&redir_esc=y">COM</a></span></u></font></font><font color="#222222"><font size="2"><span style="background: #ffffff">
+	is a good book to learn COM technology.</span></font></font></p>
+</li></ol>
+
+</body></html>
