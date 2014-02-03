@@ -5,14 +5,13 @@ Project:      taskCOMShellExtension
 The file declares the class factory for the FileContextMenuExt COM class. 
 \***************************************************************************/
 
-#pragma once
+#ifndef CLASSFACTORY_H
+#define CLASSFACTORY_H
 
 #include <unknwn.h>     // For IClassFactory
 #include <windows.h>
 
-
-class ClassFactory : public IClassFactory
-{
+class ClassFactory : public IClassFactory {
 public:
     // IUnknown
     IFACEMETHODIMP QueryInterface(REFIID riid, void **ppv);
@@ -31,3 +30,5 @@ protected:
 private:
     long m_cRef;
 };
+
+#endif // CLASSFACTORY_H

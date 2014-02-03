@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\Reg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\FileOperations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\ClassFactory.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\FileOperations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

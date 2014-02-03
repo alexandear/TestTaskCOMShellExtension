@@ -9,20 +9,18 @@ Clicking the menu item  writes information about selected files into the
 log file.
 \***************************************************************************/
 
-#pragma once
+#ifndef FILECONTEXTMENUEXT_H
+#define FILECONTEXTMENUEXT_H
 
 #include <windows.h>
 #include <shlobj.h>     // For IShellExtInit and IContextMenu
 #include <string>
-#include <vector>
 #include <list>
 #include <ctime>
+#include "FileOperations.h"
 
-class FileContextMenuExt : public IShellExtInit, public IContextMenu
-{
+class FileContextMenuExt : public IShellExtInit, public IContextMenu {
 public:
-    typedef std::list<std::basic_string<wchar_t> > stringList;
-
     // IUnknown
     IFACEMETHODIMP QueryInterface(REFIID riid, void **ppv);
     IFACEMETHODIMP_(ULONG) AddRef();
@@ -38,7 +36,7 @@ public:
 	
     FileContextMenuExt(void);
 
-    static const char * LogFile;
+    static const std::wstring LogFile;
 
 protected:
     ~FileContextMenuExt(void);
@@ -50,23 +48,7 @@ private:
     // The name of the selected file.
     wchar_t m_szSelectedFile[MAX_PATH];
 
-    // Number of the selected files.
-    UINT m_nFiles;
-
-    // Names of the selected files.
-    stringList m_listFiles;
-    
-    // Information about file.
-    struct FileInfo
-    {
-        std::basic_string<wchar_t> name;
-        off_t size;
-        std::time_t ctime;
-    } m_fileInfo;
-
-    std::list<FileInfo> m_fileList;
-
-    void WriteInformationToFile(HWND hWnd, const char * logFile);
+    FileOperations fileProcessor;
 
     PWSTR m_pszMenuText;
     HANDLE m_hMenuBmp;
@@ -77,3 +59,5 @@ private:
     PCSTR m_pszVerbHelpText;
     PCWSTR m_pwszVerbHelpText;
 };
+
+#endif // FILECONTEXTMENUEXT_H

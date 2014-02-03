@@ -11,7 +11,8 @@ RegisterShellExtContextMenuHandler - register the context menu handler.
 UnregisterShellExtContextMenuHandler - unregister the context menu handler.
 \***************************************************************************/
 
-#pragma once
+#ifndef REG_H
+#define REG_H
 
 #include <windows.h>
 
@@ -108,3 +109,5 @@ HRESULT RegisterShellExtContextMenuHandler(
 //
 HRESULT UnregisterShellExtContextMenuHandler(
     PCWSTR pszFileType, const CLSID& clsid);
+
+#endif // REG_H

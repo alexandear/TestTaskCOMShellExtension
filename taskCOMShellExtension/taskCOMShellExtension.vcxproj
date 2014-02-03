@@ -127,12 +127,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TASKCOMSHELLEXTENSION_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,16 +141,20 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>GlobalExportFunctions.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>E:\boost_1_55_0\lib64-msvc-11.0</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\ClassFactory.cpp" />
+    <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\FileOperations.cpp" />
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\Reg.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="FileContextMenuExt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\ClassFactory.h" />
+    <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\FileOperations.h" />
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\Reg.h" />
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\resource.h" />
     <ClInclude Include="FileContextMenuExt.h" />

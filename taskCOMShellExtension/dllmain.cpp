@@ -36,10 +36,8 @@ long        g_cDllRef   = 0;
 const wchar_t * pszFileType = L"*";
 
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
-{
-	switch (dwReason)
-	{
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved) {
+	switch (dwReason) {
 	case DLL_PROCESS_ATTACH:
         // Hold the instance of this DLL module, we will use it to get the 
         // path of the DLL to register the component.
@@ -69,17 +67,14 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 //     requested interface pointer. If an error occurs, the interface pointer 
 //     is NULL. 
 //
-STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppv)
-{
+STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppv) {
     HRESULT hr = CLASS_E_CLASSNOTAVAILABLE;
 
-    if (IsEqualCLSID(CLSID_FileContextMenuExt, rclsid))
-    {
+    if (IsEqualCLSID(CLSID_FileContextMenuExt, rclsid)) {
         hr = E_OUTOFMEMORY;
 
         ClassFactory *pClassFactory = new ClassFactory();
-        if (pClassFactory)
-        {
+        if (pClassFactory) {
             hr = pClassFactory->QueryInterface(riid, ppv);
             pClassFactory->Release();
         }
@@ -97,8 +92,7 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, void **ppv)
 //   NOTE: The component can be unloaded from the memory when its reference 
 //   count is zero (i.e. nobody is still using the component).
 // 
-STDAPI DllCanUnloadNow(void)
-{
+STDAPI DllCanUnloadNow(void) {
     return g_cDllRef > 0 ? S_FALSE : S_OK;
 }
 
@@ -108,13 +102,11 @@ STDAPI DllCanUnloadNow(void)
 //
 //   PURPOSE: Register the COM server and the context menu handler.
 // 
-STDAPI DllRegisterServer(void)
-{
+STDAPI DllRegisterServer(void) {
     HRESULT hr;
 
     wchar_t szModule[MAX_PATH];
-    if (GetModuleFileName(g_hInst, szModule, ARRAYSIZE(szModule)) == 0)
-    {
+    if (GetModuleFileName(g_hInst, szModule, ARRAYSIZE(szModule)) == 0) {
         hr = HRESULT_FROM_WIN32(GetLastError());
         return hr;
     }
@@ -123,8 +115,7 @@ STDAPI DllRegisterServer(void)
     hr = RegisterInprocServer(szModule, CLSID_FileContextMenuExt, 
         L"CppShellExtContextMenuHandler.FileContextMenuExt Class", 
         L"Apartment");
-    if (SUCCEEDED(hr))
-    {
+    if (SUCCEEDED(hr)) {
         // Register the context menu handler. The context menu handler is 
         // associated with the .cpp file class.
         hr = RegisterShellExtContextMenuHandler(pszFileType, 
@@ -141,21 +132,18 @@ STDAPI DllRegisterServer(void)
 //
 //   PURPOSE: Unregister the COM server and the context menu handler.
 // 
-STDAPI DllUnregisterServer(void)
-{
+STDAPI DllUnregisterServer(void) {
     HRESULT hr = S_OK;
 
     wchar_t szModule[MAX_PATH];
-    if (GetModuleFileName(g_hInst, szModule, ARRAYSIZE(szModule)) == 0)
-    {
+    if (GetModuleFileName(g_hInst, szModule, ARRAYSIZE(szModule)) == 0) {
         hr = HRESULT_FROM_WIN32(GetLastError());
         return hr;
     }
 
     // Unregister the component.
     hr = UnregisterInprocServer(CLSID_FileContextMenuExt);
-    if (SUCCEEDED(hr))
-    {
+    if (SUCCEEDED(hr)) {
         // Unregister the context menu handler.
         hr = UnregisterShellExtContextMenuHandler(pszFileType, 
             CLSID_FileContextMenuExt);
