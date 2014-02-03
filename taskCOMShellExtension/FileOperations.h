@@ -14,7 +14,6 @@ write log file.
 #include <ctime>
 #include <Windows.h>
 
-
 class FileOperations {
     struct FileInfo;
     typedef std::pair<std::wstring, FileInfo> FileInfoPair;
@@ -24,7 +23,6 @@ public:
     void addFile(const std::wstring & filePath);
     HRESULT writeLogFile(const std::wstring & logFile);
 private:
-    FileInfo & getInfo(const std::wstring & fileName, FileInfo & fileInfo);
     struct FileInfo {
         off_t size;
         std::time_t creationTime;
@@ -32,6 +30,9 @@ private:
     } m_fileInfo;
 
     std::map<std::wstring, FileInfo> m_fileMap;
+
+    FileInfo & getInfo(const std::wstring & filePath, FileInfo & fileInfo);
+    DWORD calculatePerByteSum(const std::wstring & filePath);
 };
 
 #endif // FILEOPERATIONS_H
