@@ -24,7 +24,7 @@ extern long g_cDllRef;
 #define IDM_DISPLAY 0  // The command's identifier offset
 
 
-const std::wstring FileContextMenuExt::LogFile = L"infoFile.log";
+const wstring FileContextMenuExt::LogFile = L"FileInfo.log";
 
 FileContextMenuExt::FileContextMenuExt(void) : m_cRef(1), 
     m_pszMenuText(L"&Calculate the Sum"),
@@ -207,7 +207,7 @@ IFACEMETHODIMP FileContextMenuExt::InvokeCommand(LPCMINVOKECOMMANDINFO pici) {
     if (!fUnicode && HIWORD(pici->lpVerb)) {
         // Is the verb supported by this context menu extension?
         if (StrCmpIA(pici->lpVerb, m_pszVerb) == 0) {
-            fileProcessor.writeLogFile(LogFile);
+            fileProcessor.run();
         }
         else {
             // If the verb is not recognized by the context menu handler, it 
@@ -222,7 +222,7 @@ IFACEMETHODIMP FileContextMenuExt::InvokeCommand(LPCMINVOKECOMMANDINFO pici) {
     else if (fUnicode && HIWORD(((CMINVOKECOMMANDINFOEX*)pici)->lpVerbW)) {
         // Is the verb supported by this context menu extension?
         if (StrCmpIW(((CMINVOKECOMMANDINFOEX*)pici)->lpVerbW, m_pwszVerb) == 0) {
-            fileProcessor.writeLogFile(LogFile);
+            fileProcessor.run();
         }
         else {
             // If the verb is not recognized by the context menu handler, it 
@@ -238,7 +238,7 @@ IFACEMETHODIMP FileContextMenuExt::InvokeCommand(LPCMINVOKECOMMANDINFO pici) {
         // Is the command identifier offset supported by this context menu 
         // extension?
         if (LOWORD(pici->lpVerb) == IDM_DISPLAY) {
-            fileProcessor.writeLogFile(LogFile);
+            fileProcessor.run();
         }
         else {
             // If the verb is not recognized by the context menu handler, it 
