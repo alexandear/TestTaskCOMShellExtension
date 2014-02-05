@@ -53,7 +53,7 @@ private:
 
     unsigned m_maxThreads;
     vector<boost::thread> m_threadList;
-	boost::mutex m_mtxRead, m_mtxWrite;
+    boost::mutex m_mtxRead, m_mtxWrite;
     wstring m_logFilePath;
 };
 

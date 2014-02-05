@@ -23,8 +23,8 @@ FileOperations::FileOperations(const wstring & logFilePath) : m_logFilePath(logF
 
 void FileOperations::init() {
     m_maxThreads = boost::thread::hardware_concurrency();
-	if(!m_maxThreads)
-		m_maxThreads = 2;
+    if(!m_maxThreads)
+        m_maxThreads = 2;
 }
 
 FileOperations::~FileOperations() { }
@@ -38,13 +38,13 @@ void FileOperations::run() {
     // Launch thread pool.
     size_t listSize = m_fileSet.size();
     UINT threads = listSize < m_maxThreads ? listSize : m_maxThreads;
-	for (UINT i = 0; i < threads; ++i) {
+    for (UINT i = 0; i < threads; ++i) {
         m_threadList.push_back(boost::thread(&FileOperations::getInfoAllFiles, this, &m_queuePerByteSum));
-	}
+    }
     
     for (UINT i = 0; i < threads; ++i){
-		m_threadList[i].join();
-	}
+        m_threadList[i].join();
+    }
 }
 
 void FileOperations::appendLogFile(const wstring & fileInfoStr) {
@@ -108,16 +108,16 @@ wstring FileOperations::getFileInfoStr(const wstring & fileName, const FileInfo 
 void FileOperations::getInfoAllFiles(std::queue<wstring> * queuePerByteSum) {
     while(!queuePerByteSum->empty()) {
         m_mtxRead.lock();
-			wstring filePath = queuePerByteSum->front();
-			queuePerByteSum->pop();
-		m_mtxRead.unlock();
+            wstring filePath = queuePerByteSum->front();
+            queuePerByteSum->pop();
+        m_mtxRead.unlock();
 
         FileInfo fileInfo = getInfo(filePath, fileInfo);
 
         m_mtxWrite.lock();
             wstring fileName(PathFindFileName(filePath.c_str()));
             appendLogFile(getFileInfoStr(fileName, fileInfo));
-		m_mtxWrite.unlock();
+        m_mtxWrite.unlock();
     }
 }
 
