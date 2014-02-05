@@ -52,6 +52,7 @@ void FileOperations::appendLogFile(const wstring & fileInfoStr) {
     m_filesInfoList.push_back(fileInfoStr);
 
     std::wfstream wfstr;
+    wfstr.imbue(std::locale(".1251")); 
     wfstr.open(m_logFilePath, std::ios_base::in);
     
     wstring fileInfoLine;
