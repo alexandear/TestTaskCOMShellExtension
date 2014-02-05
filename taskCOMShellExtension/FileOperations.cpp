@@ -13,7 +13,7 @@ and write short information to log file.
 #include <sys/stat.h>
 #include "FileOperations.h"
 
-FileOperations::FileOperations() : m_logFilePath(L"FilesInfo.log") {
+FileOperations::FileOperations() : m_logFilePath(L"FileInfo.log") {
     init();
 }
 

@@ -15,12 +15,14 @@ and write short information to log file.
 #include <queue>
 #include <string>
 #include <set>
+#include <vector>
 #include <Windows.h>
 
 using std::list;
 using std::pair;
 using std::queue;
 using std::set;
+using std::vector;
 using std::wstring;
 
 
@@ -42,18 +44,16 @@ private:
     queue<wstring> m_queuePerByteSum;
     list<wstring> m_filesInfoList;
 
+    void init();
     FileInfo & getInfo(const wstring & filePath, FileInfo & fileInfo);
     wstring getFileInfoStr(const wstring & fileName, const FileInfo & fileInfo);
     DWORD calculatePerByteSum(const wstring & filePath);
     void getInfoAllFiles(queue<wstring> * queuePerByteSum);
-
     void appendLogFile(const wstring & fileInfoStr);
-    void init();
 
     unsigned m_maxThreads;
     vector<boost::thread> m_threadList;
 	boost::mutex m_mtxRead, m_mtxWrite;
-
     wstring m_logFilePath;
 };
 
