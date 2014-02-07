@@ -17,10 +17,8 @@ context menu handler is associated with the .cpp file class.
 
 DllUnregisterServer unregisters the COM server and the context menu handler. 
 \***************************************************************************/
-
-#include <windows.h>
-#include <Guiddef.h>
-#include "ClassFactory.h"           // For the class factory
+#include "stdafx.h"
+#include "ClassFactory.h"
 #include "Reg.h"
 
 

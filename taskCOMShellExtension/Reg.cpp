@@ -10,9 +10,8 @@ UnregisterInprocServer - unregister the in-process component in the registry.
 RegisterShellExtContextMenuHandler - register the context menu handler.
 UnregisterShellExtContextMenuHandler - unregister the context menu handler.
 \***************************************************************************/
-
+#include "stdafx.h"
 #include "Reg.h"
-#include <strsafe.h>
 
 
 #pragma region Registry Helper Functions

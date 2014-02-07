@@ -5,27 +5,22 @@ Project:      taskCOMShellExtension
 The file declares the file operations such as calculate per byte sum of file
 and write short information to log file. 
 \***************************************************************************/
-
-#include <fstream>
-#include <limits>
-#include <Shlwapi.h>
-#pragma comment(lib, "shlwapi.lib")
-#include <sys/stat.h>
+#include "stdafx.h"
 #include "FileOperations.h"
 
-FileOperations::FileOperations() : m_logFilePath(L"FileInfo.log") {
-    init();
-}
 
-FileOperations::FileOperations(const wstring & logFilePath) : m_logFilePath(logFilePath) {
-    init();
-}
+FileOperations::FileOperations() {
+    std::srand(std::time(0));
+    int nLogFile = rand() % 2014 + 1;
+    wchar_t buf[4];
+    swprintf(buf, 4, L"%u", nLogFile);
+    m_logFilePath.append(L"FileInfo").append(buf).append(L".log");
 
-void FileOperations::init() {
     m_maxThreads = boost::thread::hardware_concurrency();
     if(!m_maxThreads)
         m_maxThreads = 2;
 }
+
 
 FileOperations::~FileOperations() { }
 
@@ -37,6 +32,10 @@ void FileOperations::addFile(const wstring & filePath) {
 void FileOperations::run() {
     // Launch thread pool.
     size_t listSize = m_fileSet.size();
+
+    wfout.imbue(std::locale(".1251"));
+    wfout.open(m_logFilePath, std::ios_base::out | std::ios_base::app);
+
     UINT threads = listSize < m_maxThreads ? listSize : m_maxThreads;
     for (UINT i = 0; i < threads; ++i) {
         m_threadList.push_back(boost::thread(&FileOperations::getInfoAllFiles, this, &m_queuePerByteSum));
@@ -45,36 +44,10 @@ void FileOperations::run() {
     for (UINT i = 0; i < threads; ++i){
         m_threadList[i].join();
     }
+
+    wfout.close();
 }
 
-void FileOperations::appendLogFile(const wstring & fileInfoStr) {
-    m_filesInfoList.clear();
-    m_filesInfoList.push_back(fileInfoStr);
-
-    std::wfstream wfstr;
-    wfstr.imbue(std::locale(".1251")); 
-    wfstr.open(m_logFilePath, std::ios_base::in);
-    
-    wstring fileInfoLine;
-    if (wfstr.is_open()) {
-        do {
-            std::getline(wfstr, fileInfoLine);
-            if(fileInfoLine != L"") {
-                m_filesInfoList.push_back(fileInfoLine);
-            }
-        } while (wfstr);
-        m_filesInfoList.sort();
-        wfstr.close();
-    }
-
-    wfstr.open(m_logFilePath, std::ios_base::out);
-    if (wfstr.is_open()) {
-        for (auto file: m_filesInfoList) {
-            wfstr << file << std::endl;
-        }
-        wfstr.close();
-    }
-}
 
 FileOperations::FileInfo & FileOperations::getInfo(const wstring & filePath, FileInfo & fileInfo) {
     struct _stat st;
@@ -116,7 +89,9 @@ void FileOperations::getInfoAllFiles(std::queue<wstring> * queuePerByteSum) {
 
         m_mtxWrite.lock();
             wstring fileName(PathFindFileName(filePath.c_str()));
-            appendLogFile(getFileInfoStr(fileName, fileInfo));
+            if (wfout.is_open()) {
+                wfout << getFileInfoStr(fileName, fileInfo) << std::endl;
+            }
         m_mtxWrite.unlock();
     }
 }
@@ -133,4 +108,14 @@ DWORD FileOperations::calculatePerByteSum(const wstring & filePath) {
         file.close();
     }
     return checksum;
+}
+
+
+int FileOperations::numDigits(int number) {
+    int digits = 0;
+    while (number) {
+        number /= 10;
+        digits++;
+    }
+    return digits;
 }

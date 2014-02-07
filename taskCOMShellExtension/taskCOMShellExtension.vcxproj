@@ -129,7 +129,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -151,6 +151,9 @@
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\ClassFactory.cpp" />
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\FileOperations.cpp" />
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\Reg.cpp" />
+    <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="FileContextMenuExt.cpp" />
   </ItemGroup>
@@ -159,6 +162,7 @@
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\FileOperations.h" />
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\Reg.h" />
     <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\resource.h" />
+    <ClInclude Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\stdafx.h" />
     <ClInclude Include="FileContextMenuExt.h" />
   </ItemGroup>
   <ItemGroup>

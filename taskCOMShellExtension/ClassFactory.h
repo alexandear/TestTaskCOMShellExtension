@@ -8,8 +8,8 @@ The file declares the class factory for the FileContextMenuExt COM class.
 #ifndef CLASSFACTORY_H
 #define CLASSFACTORY_H
 
-#include <unknwn.h>     // For IClassFactory
-#include <windows.h>
+#include "stdafx.h"
+
 
 class ClassFactory : public IClassFactory {
 public:

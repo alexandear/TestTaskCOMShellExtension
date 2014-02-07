@@ -4,12 +4,10 @@ Project:      taskCOMShellExtension
 
 The file implements the class factory for the FileContextMenuExt COM class. 
 \***************************************************************************/
-
+#include "stdafx.h"
 #include "ClassFactory.h"
 #include "FileContextMenuExt.h"
-#include <new>
-#include <Shlwapi.h>
-#pragma comment(lib, "shlwapi.lib")
+
 
 
 extern long g_cDllRef;

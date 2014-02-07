@@ -7,7 +7,7 @@ Implemented:
 
 1. It add menu item "Calculate the Sum" in Windows Explorer’s context menu (right click on the list of files, folders should be ignored).
 
-2. Menu item write information about selected files into the log file.
+2. Menu item write information about selected files into the log file (name of log file is random generated when user uses menu item).
 
 3. Component work on huge amout of selected files.
 

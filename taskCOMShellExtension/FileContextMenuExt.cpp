@@ -8,15 +8,10 @@ ignored) in the Windows Explorer.
 Clicking the menu item  writes information about selected files into the
 log file.
 \***************************************************************************/
-
+#include "stdafx.h"
 #include "FileContextMenuExt.h"
 #include "resource.h"
-#include <strsafe.h>
-#include <fstream>
-#include <sys/stat.h>
-#include <Shlwapi.h>
-#pragma comment(lib, "shlwapi.lib")
-#include <boost\filesystem.hpp>
+
 
 extern HINSTANCE g_hInst;
 extern long g_cDllRef;

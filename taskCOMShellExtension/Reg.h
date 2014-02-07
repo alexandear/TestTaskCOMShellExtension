@@ -14,7 +14,7 @@ UnregisterShellExtContextMenuHandler - unregister the context menu handler.
 #ifndef REG_H
 #define REG_H
 
-#include <windows.h>
+#include "stdafx.h"
 
 
 //

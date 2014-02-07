@@ -9,14 +9,7 @@ and write short information to log file.
 #ifndef FILEOPERATIONS_H
 #define FILEOPERATIONS_H
 
-#include <boost\thread.hpp>
-#include <boost\thread\mutex.hpp>
-#include <ctime>
-#include <queue>
-#include <string>
-#include <set>
-#include <vector>
-#include <Windows.h>
+#include "stdafx.h"
 
 using std::list;
 using std::pair;
@@ -35,7 +28,6 @@ class FileOperations {
     typedef pair<wstring, FileInfo> FileInfoPair;
 public:
     FileOperations();
-    FileOperations(const wstring & logFilePath);
     ~FileOperations();
     void addFile(const wstring & filePath);
     void run();
@@ -49,12 +41,16 @@ private:
     wstring getFileInfoStr(const wstring & fileName, const FileInfo & fileInfo);
     DWORD calculatePerByteSum(const wstring & filePath);
     void getInfoAllFiles(queue<wstring> * queuePerByteSum);
-    void appendLogFile(const wstring & fileInfoStr);
 
     unsigned m_maxThreads;
     vector<boost::thread> m_threadList;
     boost::mutex m_mtxRead, m_mtxWrite;
+
+    std::wofstream wfout;
     wstring m_logFilePath;
+    unsigned m_nLogFile;
+
+    int numDigits(int number);
 };
 
 #endif // FILEOPERATIONS_H
