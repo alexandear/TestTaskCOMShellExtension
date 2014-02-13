@@ -135,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TASKCOMSHELLEXTENSION_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>E:\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>None</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +153,7 @@
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\Reg.cpp" />
     <ClCompile Include="..\..\..\..\..\Cloud%40mail.ru\basecamp\testTaskCOMShellExtension\taskCOMShellExtension\taskCOMShellExtension\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="FileContextMenuExt.cpp" />

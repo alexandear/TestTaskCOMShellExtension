@@ -9,13 +9,13 @@ The file implements the class factory for the FileContextMenuExt COM class.
 #include "FileContextMenuExt.h"
 
 
-
 extern long g_cDllRef;
 
 
 ClassFactory::ClassFactory() : m_cRef(1) {
     InterlockedIncrement(&g_cDllRef);
 }
+
 
 ClassFactory::~ClassFactory() {
     InterlockedDecrement(&g_cDllRef);
@@ -34,9 +34,11 @@ IFACEMETHODIMP ClassFactory::QueryInterface(REFIID riid, void **ppv) {
     return QISearch(this, qit, riid, ppv);
 }
 
+
 IFACEMETHODIMP_(ULONG) ClassFactory::AddRef() {
     return InterlockedIncrement(&m_cRef);
 }
+
 
 IFACEMETHODIMP_(ULONG) ClassFactory::Release() {
     ULONG cRef = InterlockedDecrement(&m_cRef);
@@ -69,6 +71,7 @@ IFACEMETHODIMP ClassFactory::CreateInstance(IUnknown *pUnkOuter, REFIID riid, vo
 
     return hr;
 }
+
 
 IFACEMETHODIMP ClassFactory::LockServer(BOOL fLock) {
     if (fLock) {

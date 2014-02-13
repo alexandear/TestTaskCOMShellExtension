@@ -21,9 +21,3 @@
 #include <vector>
 #include <unknwn.h>
 #include <Windows.h>
-
-
-
-
-
-

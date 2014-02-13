@@ -12,6 +12,7 @@ The file declares the class factory for the FileContextMenuExt COM class.
 
 
 class ClassFactory : public IClassFactory {
+
 public:
     // IUnknown
     IFACEMETHODIMP QueryInterface(REFIID riid, void **ppv);
@@ -29,6 +30,7 @@ protected:
 
 private:
     long m_cRef;
+
 };
 
 #endif // CLASSFACTORY_H

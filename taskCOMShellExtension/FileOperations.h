@@ -20,35 +20,36 @@ using std::wstring;
 
 
 class FileOperations {
+
+public:
+    FileOperations();
+    void addFile(const wstring & filePath);
+    void run();
+
+private:
     struct FileInfo {
         off_t size;
         std::time_t creationTime;
         DWORD perByteSum;
     } m_fileInfo;
-    typedef pair<wstring, FileInfo> FileInfoPair;
-public:
-    FileOperations();
-    ~FileOperations();
-    void addFile(const wstring & filePath);
-    void run();
-private:
-    set<wstring> m_fileSet;
-    queue<wstring> m_queuePerByteSum;
-    list<wstring> m_filesInfoList;
 
+    typedef pair<wstring, FileInfo> FileInfoPair;
+
+    set<wstring> m_fileSet;
+    queue<wstring> m_perByteSumQueue;
+    list<wstring> m_filesInfoList;
+    
     void init();
     FileInfo & getInfo(const wstring & filePath, FileInfo & fileInfo);
     wstring getFileInfoStr(const wstring & fileName, const FileInfo & fileInfo);
     DWORD calculatePerByteSum(const wstring & filePath);
     void getInfoAllFiles(queue<wstring> * queuePerByteSum);
 
-    unsigned m_maxThreads;
-    vector<boost::thread> m_threadList;
-    boost::mutex m_mtxRead, m_mtxWrite;
-
     std::wofstream wfout;
     wstring m_logFilePath;
-    unsigned m_nLogFile;
+
+    vector<boost::thread> m_threadList;
+    UINT m_maxThreads;
 
     int numDigits(int number);
 };

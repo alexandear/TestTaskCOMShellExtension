@@ -10,6 +10,9 @@ and write short information to log file.
 
 
 FileOperations::FileOperations() {
+
+    wfout.imbue(std::locale(".1251"));
+
     std::srand(std::time(0));
     int nLogFile = rand() % 2014 + 1;
     wchar_t buf[4];
@@ -17,34 +20,32 @@ FileOperations::FileOperations() {
     m_logFilePath.append(L"FileInfo").append(buf).append(L".log");
 
     m_maxThreads = boost::thread::hardware_concurrency();
-    if(!m_maxThreads)
-        m_maxThreads = 2;
+    if (m_maxThreads == 0) m_maxThreads = 2;
 }
 
-
-FileOperations::~FileOperations() { }
 
 void FileOperations::addFile(const wstring & filePath) {
     m_fileSet.insert(filePath);
-    m_queuePerByteSum.push(filePath);
+    m_perByteSumQueue.push(filePath);
 }
+
 
 void FileOperations::run() {
     // Launch thread pool.
-    size_t listSize = m_fileSet.size();
+    size_t sizeList = m_fileSet.size();
 
-    wfout.imbue(std::locale(".1251"));
     wfout.open(m_logFilePath, std::ios_base::out | std::ios_base::app);
 
-    UINT threads = listSize < m_maxThreads ? listSize : m_maxThreads;
+    UINT threads = sizeList < m_maxThreads ? sizeList : m_maxThreads;
+
     for (UINT i = 0; i < threads; ++i) {
-        m_threadList.push_back(boost::thread(&FileOperations::getInfoAllFiles, this, &m_queuePerByteSum));
+        m_threadList.push_back(boost::thread(&FileOperations::getInfoAllFiles, this, &m_perByteSumQueue));
     }
     
     for (UINT i = 0; i < threads; ++i){
         m_threadList[i].join();
     }
-
+    
     wfout.close();
 }
 
@@ -58,6 +59,7 @@ FileOperations::FileInfo & FileOperations::getInfo(const wstring & filePath, Fil
     }
     return fileInfo;
 }
+
 
 wstring FileOperations::getFileInfoStr(const wstring & fileName, const FileInfo & fileInfo) {
     wchar_t timeBuf[26];
@@ -78,23 +80,26 @@ wstring FileOperations::getFileInfoStr(const wstring & fileName, const FileInfo 
     return fileInfoStr;
 }
 
-void FileOperations::getInfoAllFiles(std::queue<wstring> * queuePerByteSum) {
-    while(!queuePerByteSum->empty()) {
-        m_mtxRead.lock();
-            wstring filePath = queuePerByteSum->front();
-            queuePerByteSum->pop();
-        m_mtxRead.unlock();
+
+void FileOperations::getInfoAllFiles(std::queue<wstring> * perByteSumQueue) {
+    static boost::mutex mtxRead, mtxWrite;
+    while(!perByteSumQueue->empty()) {
+        mtxRead.lock();
+            wstring filePath = perByteSumQueue->front();
+            perByteSumQueue->pop();
+        mtxRead.unlock();
 
         FileInfo fileInfo = getInfo(filePath, fileInfo);
 
-        m_mtxWrite.lock();
+        mtxWrite.lock();
             wstring fileName(PathFindFileName(filePath.c_str()));
             if (wfout.is_open()) {
                 wfout << getFileInfoStr(fileName, fileInfo) << std::endl;
             }
-        m_mtxWrite.unlock();
+        mtxWrite.unlock();
     }
 }
+
 
 DWORD FileOperations::calculatePerByteSum(const wstring & filePath) {
     DWORD checksum = 0;

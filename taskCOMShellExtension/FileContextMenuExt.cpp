@@ -19,8 +19,6 @@ extern long g_cDllRef;
 #define IDM_DISPLAY 0  // The command's identifier offset
 
 
-const wstring FileContextMenuExt::LogFile = L"FileInfo.log";
-
 FileContextMenuExt::FileContextMenuExt(void) : m_cRef(1), 
     m_pszMenuText(L"&Calculate the Sum"),
     m_pszVerb("calculatesum"),
